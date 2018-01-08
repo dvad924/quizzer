@@ -34,6 +34,8 @@ React Redux pattern works as follows:
   The store contains the state of the entire application. So any data for quizzes/multiple quizzes will be in the store.
   individual questions, User Interface Variables ( e.g. something hidden or not ) will all be there in plain JSON 
   ({key:'an example'})
+  Here the main piece of app state that will hold quizzes and their questions is in src/stores/modules/quizzes.js
+  
   
 ## COMPONENT/DISPLAY --
   component is a visual object that is rendered to the screen could be as simple as a <div> or a paragraph of text
@@ -154,3 +156,19 @@ React Redux pattern works as follows:
   If this function is correctly added to the react redux store as a REDUCER when we click the 
   paragraph it will toggle between the phrases "I'm ready to take you on." and "Hello World".
   
+  The subtleties of how this is correctly added I will not go into here but can be found in the file src/stores/reducers.js
+  
+# Full Example
+  In terms of actions I have written a small wrapper around a lot of code that is used for the pipe line to make connections
+  slightly more readable (IMO at least)
+  
+  Action: src/stores/modules/AnswerAction.js (this will probably be moved at some point)
+  Display Component: src/routes/QuizView/Components/QuestionCounter.js
+  Container: src/routes/QuizView/Containers/QuizContainer.js
+  
+  In Quiz Container I was trying to be clever and made it simple but possibly hard to read
+  the mapStateToProps is just taking the current state and setting the appropriate variables
+  It sets the action of when an answer is selected it executes a chain of actions.
+  
+  It first answers the question, waits almost a 1/2 sec before attempting to finish the quiz
+  if it didn't it goes onto the next question.
